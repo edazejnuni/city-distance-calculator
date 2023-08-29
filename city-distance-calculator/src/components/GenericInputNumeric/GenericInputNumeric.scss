@@ -1,0 +1,31 @@
+.numeric-input{
+    width: 92px;
+    display: flex;
+    border: 1px solid #E5E7EB;
+    border-radius: 6px;
+    padding: 10px;
+    button{
+        background: #C7D1F4;
+        border: 0;
+        width: 21px;
+        height: 21px;
+        border-radius: 4px;
+        &:hover{
+            background: #7786D2;
+        }
+    }
+    input{
+        border: 0;
+        width: 100%;
+        text-align: center;
+        &:hover, &:focus{
+            border: 0;
+            box-shadow: none;
+            outline: 0;
+        }
+    }
+    .minus{
+        position: relative;
+        top: -2px;
+    }
+}

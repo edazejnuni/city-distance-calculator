@@ -1,0 +1,33 @@
+
+ul{
+    margin: 0;
+}
+input {
+    font-size: 12px !important;
+    color: #374151;
+    font-weight: 500;
+  }
+  
+.select{
+    width: 324px;
+    text-align: left;
+    @media (max-width: 768px) {
+        width: 100%;
+      }
+   
+    label{
+        font-size: 12px;
+        color: #374151;
+        font-weight: 500;
+    }
+}
+.react-select__loading-indicator {
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+  }
+  .fail-error{
+    color: #ff0000;
+    font-size: 12px;
+    font-weight: 500;
+  }

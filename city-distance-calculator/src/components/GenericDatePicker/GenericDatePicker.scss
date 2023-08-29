@@ -1,0 +1,70 @@
+.datepicker{
+
+    label{
+        font-size: 12px;
+        font-weight: 500;
+        color: #374151;
+    }
+    input{
+        width: 96px;
+        height: 32px;
+        border-radius: 6px;
+        border: 1px solid var(--grey, #E5E7EB);
+        color: var(--black, #374151);
+        text-align: center;
+        font-size: 12px;
+        font-weight: 500;
+        @media (max-width:768px) {
+          height: 38px;
+        }
+    }
+    .calendar-container{
+        position: absolute;
+        text-align: center;
+        z-index: 1;
+        margin-top: 10px;
+        width: 221px;
+        height: 203px;
+        padding: 12px 0px 4px 0px;
+        border-radius: 8px;
+        border: 1px solid var(--purple-light, #C7D1F4);
+        background: var(--white, #FFF);
+        box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.05), 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+        .select-container {
+            display: inline-block;
+            margin: 0 5px;
+            position: relative;
+            border-radius: 4px;
+            border: 1px solid var(--grey, #E5E7EB);
+            background: var(--purple-light, #C7D1F4);
+            select {
+              padding: 5px 20px 5px 5px;
+              border: 0;
+              background: url('../../assets/images/select-arrow.png') no-repeat;
+              background-size: 7px;
+              background-position: 90% 80%;
+              appearance: none; 
+              -webkit-appearance: none;
+              text-transform: uppercase;
+              -moz-appearance: none;
+              cursor: pointer;
+              option{
+                text-transform: uppercase;
+              }
+            }
+          }
+          table{
+            width: 100%;
+            margin-top: 15px;
+          }
+          .arrow-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            position: relative;
+            top: 7px;
+          }
+       
+    }
+}
