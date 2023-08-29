@@ -27,11 +27,7 @@ const Result: React.FC<ResultProps> = () => {
     selectedDate: string;
     destinations: string | undefined;
   }>();
-  const state = location.state || {
-    passengerCount: 0,
-    selectedDate: "",
-    destinations: [],
-  };
+
   const decodedDestinations = destinations || "";
   const destinationsArray = decodedDestinations.split("|");
 
@@ -118,21 +114,7 @@ const Result: React.FC<ResultProps> = () => {
               </div>
               <StyledButtonDiv>
                 <StyledButton type="submit">
-                  <a
-                    href="/"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      navigate("/", {
-                        state: {
-                          passengerCount: state.passengerCount,
-                          selectedDate: state.selectedDate,
-                          destinations: state.destinations,
-                        },
-                      });
-                    }}
-                  >
-                    Back
-                  </a>
+                  <a href="/">Back</a>
                 </StyledButton>
               </StyledButtonDiv>
             </>

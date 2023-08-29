@@ -8,6 +8,10 @@ function App() {
   return (
     <div className="App">
       <Routes>
+        <Route
+          path="/:origin/:destination/:passengerCount/:selectedDate"
+          element={<Homepage />}
+        />
         <Route path="/" element={<Homepage />} />
         <Route
           path="/result/:totalDistance/:totalPassengers/:selectedDate/:destinations"
