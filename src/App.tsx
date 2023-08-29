@@ -2,6 +2,7 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Homepage from "./pages/Homepage/Homepage";
 import Result from "./pages/Result/Result";
+import SearchResultFail from "./pages/SearchResultFail/SearchResultFail";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           path="/result/:totalDistance/:totalPassengers/:selectedDate/:destinations"
           element={<Result />}
         />
+        <Route path="/fail" element={<SearchResultFail />} />
       </Routes>
     </div>
   );

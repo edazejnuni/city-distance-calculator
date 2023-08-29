@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import "./Result.scss";
 import minDots from "../../assets/images/min-dots.png";
@@ -27,7 +27,6 @@ const Result: React.FC<ResultProps> = () => {
     selectedDate: string;
     destinations: string | undefined;
   }>();
-  const [hadDijonError, setHasDijonError] = useState<boolean>(false);
   const state = location.state || {
     passengerCount: 0,
     selectedDate: "",
@@ -57,91 +56,86 @@ const Result: React.FC<ResultProps> = () => {
     );
 
     if (hasDijonError) {
-      setHasDijonError(true);
+      navigate("/fail");
     }
-  }, [cityDistances]);
+  }, [cityDistances, navigate]);
 
   return (
     <StyledSearchForm>
       <StyledFormContainer>
         <div className="results-container">
           <div className="result-block">
-            {hadDijonError ? (
-              <p className="error-page">Oops, something went wrong!</p>
-            ) : (
-              <>
-                <div className="city-distances">
-                  {cityDistances.map((cityDistance, index) => (
-                    <div key={index} className="city-results">
-                      <div className="city-dots">
-                        <img src={minDots} alt="dots" />
-                        <span>{cityDistance.startCity}</span>
-                      </div>
-                      {index < cityDistances.length - 1 && (
-                        <div className="distance">
-                          {cityDistance.distance.toFixed(2)} km
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                  <div className="city-results final-location">
-                    <div className="distance">
-                      {cityDistances[
-                        cityDistances.length - 1
-                      ]?.distance.toFixed(2)}{" "}
-                      km
-                    </div>
+            <>
+              <div className="city-distances">
+                {cityDistances.map((cityDistance, index) => (
+                  <div key={index} className="city-results">
                     <div className="city-dots">
-                      <img src={locationIcon} alt="location" />
-                      <span>
-                        {cityDistances[cityDistances.length - 1]?.finalCity}
-                      </span>
+                      <img src={minDots} alt="dots" />
+                      <span>{cityDistance.startCity}</span>
                     </div>
+                    {index < cityDistances.length - 1 && (
+                      <div className="distance">
+                        {cityDistance.distance.toFixed(2)} km
+                      </div>
+                    )}
+                  </div>
+                ))}
+                <div className="city-results final-location">
+                  <div className="distance">
+                    {cityDistances[cityDistances.length - 1]?.distance.toFixed(
+                      2
+                    )}{" "}
+                    km
+                  </div>
+                  <div className="city-dots">
+                    <img src={locationIcon} alt="location" />
+                    <span>
+                      {cityDistances[cityDistances.length - 1]?.finalCity}
+                    </span>
                   </div>
                 </div>
-                <div className="result-text">
-                  <span className="results">
-                    {calculatedTotalDistance.toFixed(2)} km
-                  </span>{" "}
-                  is total distance
-                </div>
-                <div className="result-text">
-                  {totalPassengers === "1" ? (
-                    <>
-                      <span className="results">1</span> passenger
-                    </>
-                  ) : (
-                    <>
-                      <span className="results">{totalPassengers}</span>{" "}
-                      passengers
-                    </>
-                  )}
-                </div>
-                <div className="result-text">
-                  <span className="results">{selectedDate}</span>
-                </div>
-              </>
-            )}
-
-            <StyledButtonDiv>
-              <StyledButton type="submit">
-                <a
-                  href="/"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    navigate("/", {
-                      state: {
-                        passengerCount: state.passengerCount,
-                        selectedDate: state.selectedDate,
-                        destinations: state.destinations,
-                      },
-                    });
-                  }}
-                >
-                  Back
-                </a>
-              </StyledButton>
-            </StyledButtonDiv>
+              </div>
+              <div className="result-text">
+                <span className="results">
+                  {calculatedTotalDistance.toFixed(2)} km
+                </span>{" "}
+                is total distance
+              </div>
+              <div className="result-text">
+                {totalPassengers === "1" ? (
+                  <>
+                    <span className="results">1</span> passenger
+                  </>
+                ) : (
+                  <>
+                    <span className="results">{totalPassengers}</span>{" "}
+                    passengers
+                  </>
+                )}
+              </div>
+              <div className="result-text">
+                <span className="results">{selectedDate}</span>
+              </div>
+              <StyledButtonDiv>
+                <StyledButton type="submit">
+                  <a
+                    href="/"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate("/", {
+                        state: {
+                          passengerCount: state.passengerCount,
+                          selectedDate: state.selectedDate,
+                          destinations: state.destinations,
+                        },
+                      });
+                    }}
+                  >
+                    Back
+                  </a>
+                </StyledButton>
+              </StyledButtonDiv>
+            </>
           </div>
         </div>
       </StyledFormContainer>
