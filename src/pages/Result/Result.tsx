@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./Result.scss";
 import minDots from "../../assets/images/min-dots.png";
 import locationIcon from "../../assets/images/location.png";
@@ -20,7 +20,6 @@ interface ResultProps {}
 
 const Result: React.FC<ResultProps> = () => {
   const navigate = useNavigate();
-  const location = useLocation();
   const { totalPassengers, selectedDate, destinations } = useParams<{
     totalDistance: string;
     totalPassengers: string;
