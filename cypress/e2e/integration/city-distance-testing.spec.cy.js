@@ -1,6 +1,6 @@
 describe('Homepage Test', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000'); 
+    cy.visit('http://https://2764-2a02-dd07-8000-6700-4c6f-2f9e-f329-5db3.ngrok.io'); 
   });
 
   it('should be able to select cities and submit the form', () => {
@@ -57,7 +57,7 @@ describe('Homepage Test', () => {
 describe('Result Page Test', () => {
   
   beforeEach(() => {
-    cy.intercept('POST', 'http://localhost:3001/searchCities', {
+    cy.intercept('POST', 'https://a776-2a02-dd07-8000-6700-4c6f-2f9e-f329-5db3.ngrok.io/searchCities', {
       statusCode: 200,
       body: [
         { value: 'Paris', label: 'Paris', latitude: 48.8566, longitude: 2.3522 },
@@ -65,7 +65,7 @@ describe('Result Page Test', () => {
         { value: 'Lyon', label: 'Lyon', latitude: 45.75, longitude: 4.85 }
       ]  
     });
-    cy.visit('http://localhost:3000/result/846.0876732668767/2/Aug%2029,%202023/Paris%3AMontpellier%3A594.9453468393059%7CMontpellier%3ALyon%3A251.14232642757074');
+    cy.visit('http://https://2764-2a02-dd07-8000-6700-4c6f-2f9e-f329-5db3.ngrok.io/result/846.0876732668767/2/Aug%2029,%202023/Paris%3AMontpellier%3A594.9453468393059%7CMontpellier%3ALyon%3A251.14232642757074');
   });
 
   it('should display the result page after form submission', () => {
@@ -74,7 +74,7 @@ describe('Result Page Test', () => {
   });
 
   it('should display an error message when Dijon is involved', () => {
-    cy.intercept('POST', 'http://localhost:3001/searchCities', {
+    cy.intercept('POST', 'https://a776-2a02-dd07-8000-6700-4c6f-2f9e-f329-5db3.ngrok.io/searchCities', {
       statusCode: 200,
       body: [
         { value: 'Paris', label: 'Paris', latitude: 48.8566, longitude: 2.3522 },
@@ -86,7 +86,7 @@ describe('Result Page Test', () => {
         },
       ]  
     });
-    cy.visit('http://localhost:3000/result/262.67711555282904/3/Aug%2029,%202023/Paris%3ADijon%3A262.67711555282904');
+    cy.visit('http://https://2764-2a02-dd07-8000-6700-4c6f-2f9e-f329-5db3.ngrok.io/result/262.67711555282904/3/Aug%2029,%202023/Paris%3ADijon%3A262.67711555282904');
     cy.get('.error-page').should('exist');
   });
 
@@ -94,7 +94,7 @@ describe('Result Page Test', () => {
     cy.get('.results-container').should('exist');
     cy.wait(2000);
     cy.get('.results-container a').should('be.visible').click();
-    cy.url().should('eq', 'http://localhost:3000/');
+    cy.url().should('eq', 'http://https://2764-2a02-dd07-8000-6700-4c6f-2f9e-f329-5db3.ngrok.io/');
   });
   
   
