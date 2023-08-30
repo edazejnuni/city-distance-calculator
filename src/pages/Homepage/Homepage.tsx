@@ -16,7 +16,7 @@ import location from "../../assets/images/location.png";
 import remove from "../../assets/images/remove.png";
 import add from "../../assets/images/add.png";
 import { calculateDistances } from "../../utils/calculateDistanceApi";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 
 interface CityInfo {
   value: string;
@@ -28,6 +28,9 @@ interface CityInfo {
 
 const Homepage: React.FC = () => {
   const navigate = useNavigate();
+  const { state } = useLocation();
+  const { total, totalPassengers, formattedSelectedDate, destinationsParam } =
+    useParams();
   const [cityData, setCityData] = useState<CityInfo[]>([]);
   const [dateError, setDateError] = useState<string>("");
   const [dateErrorCheck, setDateErrorCheck] = useState<boolean>(false);
@@ -35,11 +38,12 @@ const Homepage: React.FC = () => {
   const [passengerCount, setPassengerCount] = useState(0);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [destinations, setDestinations] = useState([""]);
+
   useEffect(() => {
     const fetchCityData = async () => {
       try {
         const response = await axios.post(
-          "https://7ae6-2a02-dd07-8000-6700-4c6f-2f9e-f329-5db3.ngrok-free.app/searchCities",
+          "https://cfbc-2a02-dd07-8000-6700-85a7-5264-a56c-3c1d.ngrok-free.app/searchCities",
           {
             keyword: "",
           }
@@ -51,6 +55,21 @@ const Homepage: React.FC = () => {
     };
 
     fetchCityData();
+  }, [cityData]);
+  useEffect(() => {
+    // Parse the destinationsParam and extract the distancesSummary
+    // Update the destinations and other state variables with the extracted data
+    // Handle pre-filled data from state (if available)
+    if (state) {
+      const {
+        passengerCount,
+        selectedDate,
+        destinations: preFilledDestinations,
+      } = state;
+      setPassengerCount(passengerCount);
+      setSelectedDate(new Date(selectedDate));
+      setDestinations(preFilledDestinations);
+    }
   }, []);
   const addDestination = () => {
     setDestinations([...destinations, ""]);
@@ -64,15 +83,15 @@ const Homepage: React.FC = () => {
     const updatedDestinations = [...destinations];
     updatedDestinations[index] = value;
     setDestinations(updatedDestinations);
-    console.log(destinations);
   };
   useEffect(() => {
     setDestinations(["", ""]);
   }, []);
+
   const handleCitySearch = async (inputValue: string, index: number) => {
     try {
       const response = await axios.post(
-        "https://7ae6-2a02-dd07-8000-6700-4c6f-2f9e-f329-5db3.ngrok-free.app/searchCities",
+        "https://cfbc-2a02-dd07-8000-6700-85a7-5264-a56c-3c1d.ngrok-free.app/searchCities",
         {
           keyword: inputValue,
         }
@@ -85,16 +104,15 @@ const Homepage: React.FC = () => {
         longitude: city.longitude,
       }));
 
-      const updatedCityData = cityData.map((city, i) => ({
-        ...city,
-        suggestions: i === index ? citySuggestions : [],
-      }));
+      const updatedCityData = [...cityData];
+      updatedCityData[index].suggestions = citySuggestions;
 
       setCityData(updatedCityData);
     } catch (error) {
       console.error("Error fetching city suggestions:", error);
     }
   };
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -253,6 +271,8 @@ const Homepage: React.FC = () => {
                   className={dateError ? "date-error-border" : ""}
                   onSelectDate={(selectedDate) => {
                     const currentDate = new Date();
+                    currentDate.setHours(0, 0, 0, 0);
+
                     if (selectedDate >= currentDate) {
                       setSelectedDate(selectedDate);
                       setDateError("");
@@ -265,6 +285,7 @@ const Homepage: React.FC = () => {
                     }
                   }}
                 />
+
                 {dateError && (
                   <p className="error-message date-error">{dateError}</p>
                 )}
