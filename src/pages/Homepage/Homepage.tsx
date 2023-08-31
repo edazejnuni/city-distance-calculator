@@ -43,7 +43,7 @@ const Homepage: React.FC = () => {
     const fetchCityData = async () => {
       try {
         const response = await axios.post(
-          "https://ae89-2a02-dd07-8000-6700-85a7-5264-a56c-3c1d.ngrok-free.app/searchCities",
+          "https://ca53-2a02-dd07-8000-6700-85a7-5264-a56c-3c1d.ngrok-free.app/searchCities",
           {
             keyword: "",
           }
@@ -91,7 +91,7 @@ const Homepage: React.FC = () => {
   const handleCitySearch = async (inputValue: string, index: number) => {
     try {
       const response = await axios.post(
-        "https://ae89-2a02-dd07-8000-6700-85a7-5264-a56c-3c1d.ngrok-free.app/searchCities",
+        "https://ca53-2a02-dd07-8000-6700-85a7-5264-a56c-3c1d.ngrok-free.app/searchCities",
         {
           keyword: inputValue,
         }
